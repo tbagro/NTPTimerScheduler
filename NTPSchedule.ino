@@ -127,13 +127,12 @@ String scheduleChk(const String &schedule, const byte &pin) {
     // Adiciona a contagem regressiva para desligar o pino
     // Adiciona a contagem regressiva para desligar o pino
     unsigned long timeRemaining = intervalBetweenActivations - (millis() - lastActivationTime);
-    unsigned long minutesRemaining = timeRemaining / 60000;           // Converte para minutos
-    unsigned long secondsRemaining = (timeRemaining % 60000) / 1000;  // Converte o restante para segundos
+    unsigned long segundos = (timeRemaining % 60000) / 1000;  // Obtém os segundos restantes
+    unsigned long minutos = segundos / 60;                    // Converte para minutos
 
-    Serial.print("Desligando o pino em ");
-    Serial.print(minutesRemaining);
+    Serial.print(minutos);
     Serial.print(" minutos e ");
-    Serial.print(secondsRemaining);
+    Serial.print(segundos);
     Serial.println(" segundos.");
   }
 
@@ -226,9 +225,9 @@ void loop() {
     // Calcula o tempo restante até o próximo acionamento
     unsigned long timeRemaining = intervalBetweenActivations - (millis() - lastActivationTime);
     Serial.print("Desligando o pino em ");
-
-    unsigned long minutos = timeRemaining / 60000;            // Converte para minutos
+    
     unsigned long segundos = (timeRemaining % 60000) / 1000;  // Obtém os segundos restantes
+    unsigned long minutos = segundos / 60;                    // Converte para minutos
 
     Serial.print(minutos);
     Serial.print(" minutos e ");
